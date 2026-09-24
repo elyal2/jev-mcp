@@ -10,7 +10,7 @@ compactas, en vez de un espejo 1:1 del endpoint:
 La clave y el endpoint se resuelven desde el entorno / .env (ver config.py).
 Este proceso corre FUERA del sandbox de la app, por eso sí tiene red.
 
-`decide` deja que DecisionAPIError se propague: FastMCP lo convierte en un
+`decide` deja que DecisionAPIError se propague: MCPServer lo convierte en un
 error de tool para el cliente MCP, en vez de devolverlo disfrazado de
 resultado normal. `classify_batch` sí captura errores por elemento porque su
 contrato es explícitamente de resultados parciales (unos items pueden fallar
@@ -76,7 +76,7 @@ async def decide(
 
     Returns el cuerpo de la API: {"model", "answers": {id: {...}}, "usage"}.
     Lanza DecisionAPIError (fallo permanente, o transitorio tras agotar
-    reintentos) — FastMCP lo devuelve al cliente MCP como error de tool.
+    reintentos) — MCPServer lo devuelve al cliente MCP como error de tool.
     """
     new_correlation_id()
     try:
